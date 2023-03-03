@@ -1,6 +1,7 @@
 const sortByDate = document.getElementById('sort-by-date');
 const seeMoreContainer = document.getElementById('see-more-container');
 
+// loading all data
 const loadAiTools = async (seeMore, sort) => {
   const url = `https://openapi.programming-hero.com/api/ai/tools`;
   const res = await fetch(url);
@@ -9,12 +10,13 @@ const loadAiTools = async (seeMore, sort) => {
   showAiTools(data.data.tools, seeMore, sort);
 }
 
+// display all data
 const showAiTools = (data, seeMore, sort) => {
   const cards = document.getElementById('cards');
   cards.innerHTML = '';
 
 
-  // if clicked on see more or not
+  // if clicked on SEE MORE or not
   if (seeMore) {
     seeMoreContainer.classList.add('d-none');
   }
@@ -23,16 +25,13 @@ const showAiTools = (data, seeMore, sort) => {
     seeMoreContainer.classList.remove('d-none');
   }
 
-  // if sort clicked
+  // if SORT clicked
   if (sort) {
     data.sort((a, b) => new Date(a.published_in) - new Date(b.published_in));
     sortByDate.innerText = "Combine";
-    // combine.classList.remove('d-none');
   }
   else {
     sortByDate.innerText = "Sort by Date";
-    // sortByDate.classList.remove('d-none');
-    // combine.classList.add('d-none');
   }
 
   // turning off the spinner
@@ -72,6 +71,7 @@ const showAiTools = (data, seeMore, sort) => {
   })
 }
 
+// making li for feature inside home page cards
 const makeFeatures = (data) => {
   let featureHtml = '';
   for (let i = 1; i <= data.features.length; i++) {
@@ -82,6 +82,7 @@ const makeFeatures = (data) => {
   return featureHtml;
 }
 
+// loading modal data with particular ID
 const modalDataLoad = async id => {
   const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`
   const res = await fetch(url);
@@ -89,6 +90,7 @@ const modalDataLoad = async id => {
   modalDataShow(data.data)
 }
 
+// display modal with data
 const modalDataShow = data => {
   // console.log(data);
   const modalBody = document.getElementById('modal-body');
@@ -134,7 +136,7 @@ const modalDataShow = data => {
     <div class="position-relative">
       <div>
           <p id="accuracy${id}-before" class="btn btn-danger position-absolute top-20 end-0" style="transform: translate(-10%, 20%)">
-          <span id="accuracy${id}">${accuracy.score ? accuracy.score*100 : 0}</span>% accuracy
+          <span id="accuracy${id}">${accuracy.score ? accuracy.score * 100 : 0}</span>% accuracy
           </p>
       </div>
       <img style="height: 15rem"
@@ -154,10 +156,11 @@ const modalDataShow = data => {
   }
 }
 
+// make li for feature on modal
 const makeLiForFeatures = data => {
-
+  
   let lis = ''
-
+  
   if (data === null) {
     lis = `
     <li class="m-0 p-0" style="font-size: 0.6rem;">No data Found</li
@@ -170,12 +173,14 @@ const makeLiForFeatures = data => {
       `
     });
   }
-
+  
   return lis;
 }
+
+// make li for integrations on modal
 const makeLiForIntegrations = data => {
   let lis = ''
-
+  
   if (data === null) {
     lis = `
     <li class="m-0 p-0" style="font-size: 0.6rem;">No data Found</li
@@ -193,6 +198,7 @@ const makeLiForIntegrations = data => {
   // console.log(data)
 }
 
+// make a p tag for every pricing
 const makingP = (data, index) => {
   console.log(data);
   phtml = '';
@@ -209,6 +215,7 @@ const makingP = (data, index) => {
   return phtml;
 }
 
+// display input output examples on modal
 const inputOutputExamples = (data, index) => {
   let inputOutput = '';
   if (data.input_output_examples === null) {
@@ -227,6 +234,7 @@ const inputOutputExamples = (data, index) => {
   return inputOutput;
 }
 
+// if SORT button clicked
 sortByDate.addEventListener('click', function () {
   const seeMore = Array.from(seeMoreContainer.classList).includes('d-none');
   const sortByDateClicked = sortByDate.innerText === 'Combine' ? false : true;
@@ -234,6 +242,7 @@ sortByDate.addEventListener('click', function () {
   loadAiTools(seeMore, sortByDateClicked);
 })
 
+// if SEE MORE button clicked
 seeMoreContainer.addEventListener('click', function () {
   // need to check either sort button clicked or not
   const sortByDateClicked = sortByDate.innerText === 'Combine' ? true : false;
@@ -244,6 +253,7 @@ seeMoreContainer.addEventListener('click', function () {
   loadAiTools(seeMore, sortByDateClicked);
 })
 
+// spinner
 const togglerSpinner = need => {
   const spinnerSection = document.getElementById('spinner-section');
   if (need) {
