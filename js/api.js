@@ -47,7 +47,7 @@ const showAiTools = (data, seeMore, sort) => {
             <img src="${image}"
               class="card-img-top rounded p-3 h-100" alt="...">
             <div class="card-body">
-              <h5 class="card-title">Features</h5>
+              <h5 class="card-title fw-bolder">Features</h5>
               <div class="m-0 p-0"> 
               ${makeFeatures(card)}
               </div>
@@ -76,7 +76,7 @@ const makeFeatures = (data) => {
   let featureHtml = '';
   for (let i = 1; i <= data.features.length; i++) {
     featureHtml += `
-      <p><span>${i}. </span>${data?.features[i - 1]}</p>
+      <p class="m-0 p-0"><span>${i}. </span>${data?.features[i - 1]}</p>
     `
   }
   return featureHtml;
@@ -134,7 +134,7 @@ const modalDataShow = data => {
     <div class="position-relative">
       <div>
           <p id="accuracy${id}-before" class="btn btn-danger position-absolute top-20 end-0" style="transform: translate(-10%, 20%)">
-          <span id="accuracy${id}">${accuracy.score ? accuracy.score : 0}</span>% accuracy
+          <span id="accuracy${id}">${accuracy.score ? accuracy.score*100 : 0}</span>% accuracy
           </p>
       </div>
       <img style="height: 15rem"
