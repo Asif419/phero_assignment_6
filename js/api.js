@@ -102,7 +102,7 @@ const modalDataShow = data => {
       <div class="m-0 p-0 bg-white p-2 text-center rounded fw-bolder text-success">
         ${makingP(data, 0)}
       </div>
-      <div class="m-0 p-0 bg-white p-2 text-center rounded fw-bolder text-warning">
+      <div class="m-0 p-0 bg-white p-2 text-center rounded fw-bolder text-warning-emphasis">
       ${makingP(data, 1)}
       </div>
       <div class="m-0 p-0 bg-white p-2 text-center rounded fw-bolder text-danger">
@@ -165,7 +165,6 @@ const makeLiForFeatures = data => {
   }
   else {
     Object.values(data).forEach(singleData => {
-      console.log(singleData.feature_name);
       lis += `
       <li class="m-0 p-0" style="font-size: 0.6rem;">${singleData.feature_name}</li>
       `
@@ -191,10 +190,11 @@ const makeLiForIntegrations = data => {
   }
 
   return lis;
-  console.log(data);
+  // console.log(data)
 }
 
 const makingP = (data, index) => {
+  console.log(data);
   phtml = '';
   if (data.pricing === null) {
     phtml = `
@@ -203,7 +203,7 @@ const makingP = (data, index) => {
   }
   else {
     phtml = `
-    <p class="m-0 p-0" style="font-size: 0.7rem;"><span>${data.pricing[index].price === "0" ? 'Free of Cost/' : data.pricing[index].price ? data.pricing[index].price : 'Free of Cost/'}</span><br><span>${data.pricing[index].plan ? data.pricing[index].plan : 'N/A'}</p>
+    <p class="m-0 p-0" style="font-size: 0.7rem;"><span>${data.pricing[index].price ? data.pricing[index].price : 'Free of Cost/'}</span><br><span>${data.pricing[index].plan ? data.pricing[index].plan : 'N/A'}</p>
     `
   }
   return phtml;
